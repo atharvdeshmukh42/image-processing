@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Noise Removal - Project Report</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f5f5f5; color: #333; padding: 40px 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: #fff; border-radius: 10px; padding: 40px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+        h1 { text-align: center; font-size: 24px; margin-bottom: 5px; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 30px; font-size: 14px; }
+        h2 { font-size: 18px; margin: 25px 0 10px; padding-bottom: 5px; border-bottom: 2px solid #4a90d9; color: #4a90d9; }
+        h3 { font-size: 15px; margin: 18px 0 8px; color: #555; }
+        p, li { font-size: 14px; line-height: 1.7; }
+        ul { padding-left: 20px; margin-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; margin: 10px 0 20px; font-size: 14px; }
+        th { background: #4a90d9; color: #fff; padding: 10px 12px; text-align: left; }
+        td { padding: 8px 12px; border-bottom: 1px solid #e0e0e0; }
+        tr:hover td { background: #f0f6ff; }
+        .best { font-weight: bold; color: #2e7d32; }
+        img { width: 100%; border-radius: 6px; margin: 10px 0; border: 1px solid #ddd; }
+        .conclusion { background: #f0f6ff; border-left: 4px solid #4a90d9; padding: 15px 20px; border-radius: 4px; margin-top: 20px; }
+        .conclusion li { margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Image Noise Removal using OpenCV</h1>
+    <p class="subtitle">Techniques: Median Filter | Gaussian Filter | Bilateral Filter</p>
+
+    <h2>Aim</h2>
+    <p>To remove Salt & Pepper and Gaussian noise from images using Median, Gaussian, and Bilateral filters in OpenCV (Python), and compare their performance using PSNR metric.</p>
+
+    <h2>Theory</h2>
+    <p>Image noise is unwanted random variation in pixel values that degrades image quality. It is introduced during image capture, transmission, or storage.</p>
+    <h3>Types of Noise</h3>
+    <ul>
+        <li><strong>Salt & Pepper Noise:</strong> Random white (255) and black (0) pixels scattered across the image. Also called impulse noise. Common in faulty sensors or transmission errors.</li>
+        <li><strong>Gaussian Noise:</strong> Random values added to every pixel following a normal distribution. Results in a grainy appearance. Common in low-light photography.</li>
+    </ul>
+    <h3>Filters Used</h3>
+    <ul>
+        <li><strong>Median Filter:</strong> Replaces each pixel with the median value of its neighbors. Very effective for salt & pepper noise since extreme values (0 or 255) are replaced by the middle value.</li>
+        <li><strong>Gaussian Filter:</strong> Convolves the image with a Gaussian kernel to average out noise. Fast but blurs edges along with the noise.</li>
+        <li><strong>Bilateral Filter:</strong> Smooths the image while preserving edges. It considers both spatial distance and intensity difference, so edges are not blurred.</li>
+    </ul>
+    <h3>Quality Metric</h3>
+    <p><strong>PSNR (Peak Signal-to-Noise Ratio)</strong> measures the quality of a filtered image compared to the original. Higher PSNR (in dB) means better quality. Formula: PSNR = 10 × log₁₀(MAX² / MSE).</p>
+
+    <h2>Output</h2>
+
+    <h3>Salt & Pepper Noise Removal</h3>
+    <img src="output_salt_pepper.png" alt="Salt and Pepper Noise Removal Results">
+    <table>
+        <tr><th>Image</th><th>PSNR (dB)</th></tr>
+        <tr><td>Noisy Image</td><td>13.36</td></tr>
+        <tr><td class="best">After Median Filter ★</td><td class="best">23.53</td></tr>
+        <tr><td>After Gaussian Filter</td><td>21.08</td></tr>
+        <tr><td>After Bilateral Filter</td><td>13.43</td></tr>
+    </table>
+
+    <h3>Gaussian Noise Removal</h3>
+    <img src="output_gaussian.png" alt="Gaussian Noise Removal Results">
+    <table>
+        <tr><th>Image</th><th>PSNR (dB)</th></tr>
+        <tr><td>Noisy Image</td><td>20.62</td></tr>
+        <tr><td>After Median Filter</td><td>23.10</td></tr>
+        <tr><td>After Gaussian Filter</td><td>24.73</td></tr>
+        <tr><td class="best">After Bilateral Filter ★</td><td class="best">26.83</td></tr>
+    </table>
+
+    <h2>Conclusion</h2>
+    <div class="conclusion">
+        <ul>
+            <li><strong>Median Filter</strong> works best for <strong>Salt & Pepper noise</strong> (PSNR: 13.36 → 23.53 dB) — it replaces corrupted pixels with the median of neighbors.</li>
+            <li><strong>Bilateral Filter</strong> works best for <strong>Gaussian noise</strong> (PSNR: 20.62 → 26.83 dB) — it smooths noise while preserving edges.</li>
+            <li><strong>Gaussian Filter</strong> provides moderate denoising but blurs edges in both cases.</li>
+            <li>The choice of filter depends on the type of noise present in the image.</li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
